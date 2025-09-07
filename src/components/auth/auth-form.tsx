@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,6 +46,24 @@ export default function AuthForm({ mode }: AuthFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const isLogin = mode === "login";
+
+  // Check if user is already logged in and redirect
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const response = await fetch('/api/auth/session');
+        if (response.ok) {
+          const session = await response.json();
+          if (session?.user) {
+            window.location.replace('/leads');
+          }
+        }
+      } catch (error) {
+        // Ignore error, user not logged in
+      }
+    };
+    checkSession();
+  }, []);
 
   const formSchema = isLogin ? loginSchema : signupSchema;
 
@@ -107,13 +125,11 @@ export default function AuthForm({ mode }: AuthFormProps) {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      const data = await authClient.signIn.social({
+      await authClient.signIn.social({
         provider: "google",
         callbackURL: "/leads",
       });
-      if (data?.user) {
-        router.push('/leads');
-      }
+      // Redirect will be handled by callbackURL
     } catch (error) {
       toast({
         title: "Authentication Failed",
