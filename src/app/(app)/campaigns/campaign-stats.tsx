@@ -10,11 +10,11 @@ export default function CampaignStats() {
   const campaigns = data?.data || [];
 
   const stats = {
-    total: campaigns.length,
-    active: campaigns.filter(c => c.status === 'active').length,
-    totalLeads: campaigns.reduce((sum, c) => sum + c.total_leads, 0),
+    total: campaigns.length || 0,
+    active: campaigns.filter(c => c.status === 'active').length || 0,
+    totalLeads: campaigns.reduce((sum, c) => sum + (Number(c.totalLeads) || 0), 0),
     avgResponseRate: campaigns.length > 0 
-      ? campaigns.reduce((sum, c) => sum + parseFloat(c.response_rate), 0) / campaigns.length 
+      ? campaigns.reduce((sum, c) => sum + (Number(c.responseRate) || 0), 0) / campaigns.length 
       : 0,
   };
 
@@ -56,8 +56,8 @@ export default function CampaignStats() {
           <TrendingUp className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{stats.avgResponseRate.toFixed(1)}%</div>
-          <Progress value={stats.avgResponseRate} className="mt-2" />
+          <div className="text-2xl font-bold">{isNaN(stats.avgResponseRate) ? '0.0' : stats.avgResponseRate.toFixed(1)}%</div>
+          <Progress value={isNaN(stats.avgResponseRate) ? 0 : stats.avgResponseRate} className="mt-2" />
         </CardContent>
       </Card>
     </div>

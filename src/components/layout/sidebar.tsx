@@ -48,7 +48,7 @@ export default function Sidebar() {
             sidebarState === 'collapsed' ? 'opacity-0 -translate-x-4 w-0' : 'opacity-100'
           }`}
         >
-          SaaSboard
+          DataFlow Pro
         </h1>
       </SidebarHeader>
 

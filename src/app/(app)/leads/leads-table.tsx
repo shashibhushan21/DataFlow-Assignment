@@ -169,11 +169,11 @@ export default function LeadsTable() {
                                     </div>
                                     <div className="flex justify-between mt-2">
                                         <span>Campaign:</span>
-                                        <span className="font-medium text-foreground">{lead.campaign?.name || 'No Campaign'}</span>
+                                        <span className="font-medium text-foreground">No Campaign</span>
                                     </div>
                                     <div className="flex justify-between mt-2">
                                         <span>Last Contacted:</span>
-                                        <span className="font-medium text-foreground">{lead.last_contacted ? new Date(lead.last_contacted).toLocaleDateString() : 'Never'}</span>
+                                        <span className="font-medium text-foreground">{lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : 'Never'}</span>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -300,8 +300,8 @@ export default function LeadsTable() {
                               {lead.status}
                               </Badge>
                           </TableCell>
-                          <TableCell>{lead.campaign?.name || 'No Campaign'}</TableCell>
-                          <TableCell>{lead.last_contacted ? new Date(lead.last_contacted).toLocaleDateString() : 'Never'}</TableCell>
+                          <TableCell>No Campaign</TableCell>
+                          <TableCell>{lead.createdAt ? new Date(lead.createdAt).toLocaleDateString() : 'Never'}</TableCell>
                       </TableRow>
                     ))}
                   </AnimatePresence>
