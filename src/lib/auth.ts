@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 
 export const auth = betterAuth({
-  baseURL: process.env.BASE_URL || "http://localhost:9002",
+  baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:9002",
   secret: process.env.AUTH_SECRET || "super-secret-key",
   emailAndPassword: {
     enabled: true,

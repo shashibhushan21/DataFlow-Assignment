@@ -68,7 +68,10 @@ export default function AuthForm({ mode }: AuthFormProps) {
           title: "Authentication Successful",
           description: "Welcome to your dashboard!",
         });
-        router.push('/leads');
+        // Add delay to ensure auth state is set
+        setTimeout(() => {
+          window.location.href = '/leads';
+        }, 1000);
       } else {
         await authClient.signUp.email({
           email: values.email,
@@ -79,7 +82,10 @@ export default function AuthForm({ mode }: AuthFormProps) {
           title: "Account Created",
           description: "Welcome to DataFlow Pro!",
         });
-        router.push('/leads');
+        // Add delay to ensure auth state is set
+        setTimeout(() => {
+          window.location.href = '/leads';
+        }, 1000);
       }
     } catch (error: any) {
       let errorMessage = "Failed to authenticate";
