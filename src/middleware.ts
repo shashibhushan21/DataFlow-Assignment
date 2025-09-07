@@ -19,15 +19,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
   
-  // For protected routes, check for any auth-related cookies
-  const authCookies = [
-    'better-auth.session_token',
-    'better-auth.session',
-    'authjs.session-token',
-    'next-auth.session-token'
-  ];
-  
-  const hasSession = authCookies.some(cookieName => request.cookies.has(cookieName));
+  // Check for any cookie that looks like a session token
+  const cookies = request.cookies.getAll();
+  const hasSession = cookies.some(cookie => 
+    cookie.name.includes('session') || 
+    cookie.name.startsWith('better-auth') ||
+    cookie.value.length > 50 // Long encrypted tokens
+  );
   
   if (!hasSession) {
     return NextResponse.redirect(new URL('/login', request.url));

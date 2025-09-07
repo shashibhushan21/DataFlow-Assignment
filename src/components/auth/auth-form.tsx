@@ -49,17 +49,17 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
   // Check if user is already logged in and redirect
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await fetch('/api/auth/session');
-        if (response.ok) {
-          const session = await response.json();
-          if (session?.user) {
-            window.location.replace('/leads');
-          }
-        }
-      } catch (error) {
-        // Ignore error, user not logged in
+    const checkSession = () => {
+      // Check for any authentication cookie
+      const cookies = document.cookie.split(';');
+      const hasAuthCookie = cookies.some(cookie => 
+        cookie.trim().length > 50 || // Long encrypted tokens
+        cookie.includes('session') ||
+        cookie.includes('auth')
+      );
+      
+      if (hasAuthCookie) {
+        window.location.replace('/leads');
       }
     };
     checkSession();
