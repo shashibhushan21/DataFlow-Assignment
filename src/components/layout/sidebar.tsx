@@ -94,7 +94,7 @@ export default function Sidebar() {
             <DropdownMenuTrigger asChild>
                 <div className='group/user-profile cursor-pointer p-2 flex items-center gap-3 rounded-3xl hover:bg-sidebar-accent'>
                     <Avatar className="h-10 w-10">
-                        <AvatarImage src="https://picsum.photos/id/1025/100" alt="User" data-ai-hint="man portrait" />
+                        <AvatarImage src="https://res.cloudinary.com/bhushancloud/image/upload/v1757339322/sashi_gn5czi.jpg" alt="User" />
                         <AvatarFallback>U</AvatarFallback>
                     </Avatar>
                     <div className={`flex flex-col overflow-hidden transition-all duration-300 ${sidebarState === 'collapsed' ? 'w-0' : 'w-full'}`}>
