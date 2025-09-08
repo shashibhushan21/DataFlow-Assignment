@@ -20,6 +20,7 @@ import { MoreHorizontal, ArrowUpDown, Edit, Play, Pause, Trash2 } from 'lucide-r
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useEffect, useState as useReactState } from 'react';
 
 const statusColors = {
   draft: 'bg-gray-500/20 text-gray-500 shadow-inner',
@@ -67,7 +68,16 @@ function CampaignsSkeleton() {
 export default function CampaignsTable() {
     const [sortKey, setSortKey] = useState<SortKey>('created_at');
     const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
-    const isMobile = useIsMobile();
+    const [isMobile, setIsMobile] = useReactState(false);
+    
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
     
     const { data, isLoading, error } = useCampaigns();
     const campaigns = data?.data || [];
@@ -142,8 +152,9 @@ export default function CampaignsTable() {
                                         </div>
                                     </CardHeader>
                                     <CardContent className="text-sm text-muted-foreground space-y-2">
-                                        <div className="flex justify-between"><span>Start Date:</span> <span className="font-medium text-foreground">{campaign.startDate}</span></div>
-                                        <div className="flex justify-between"><span>Leads:</span> <span className="font-medium text-foreground">{campaign.leads}</span></div>
+                                        <div className="flex justify-between"><span>Created:</span> <span className="font-medium text-foreground">{campaign.createdAt}</span></div>
+                                        <div className="flex justify-between"><span>Total Leads:</span> <span className="font-medium text-foreground">{campaign.totalLeads}</span></div>
+                                        <div className="flex justify-between"><span>Budget:</span> <span className="font-medium text-foreground">${campaign.budget}</span></div>
                                         <div>
                                             <div className="flex justify-between mb-1">
                                                 <span>Response Rate:</span>
@@ -173,8 +184,8 @@ export default function CampaignsTable() {
                     <TableRow>
                     <TableHead><SortableHeader tkey="name" label="Campaign" /></TableHead>
                     <TableHead><SortableHeader tkey="status" label="Status" /></TableHead>
-                    <TableHead><SortableHeader tkey="startDate" label="Start Date" /></TableHead>
-                    <TableHead><SortableHeader tkey="leads" label="Leads" /></TableHead>
+                    <TableHead><SortableHeader tkey="createdAt" label="Created" /></TableHead>
+                    <TableHead><SortableHeader tkey="totalLeads" label="Total Leads" /></TableHead>
                     <TableHead className="w-[20%]"><SortableHeader tkey="responseRate" label="Response Rate" /></TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
@@ -188,8 +199,8 @@ export default function CampaignsTable() {
                                 {campaign.status}
                                 </Badge>
                             </TableCell>
-                            <TableCell>{campaign.startDate}</TableCell>
-                            <TableCell>{campaign.leads}</TableCell>
+                            <TableCell>{campaign.createdAt}</TableCell>
+                            <TableCell>{campaign.totalLeads}</TableCell>
                             <TableCell>
                                 <div className="flex items-center gap-2">
                                     <Progress value={campaign.responseRate} className="h-2" />

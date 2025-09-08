@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import {
   Sidebar as SidebarPrimitive,
   SidebarContent,
@@ -35,7 +36,12 @@ const navItems = [
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { state: sidebarState } = useSidebar();
+  const { state: sidebarState, setOpenMobile } = useSidebar();
+
+  // Close mobile sidebar on navigation
+  useEffect(() => {
+    setOpenMobile(false);
+  }, [pathname, setOpenMobile]);
 
   const handleLogout = () => {
     router.push('/login');
