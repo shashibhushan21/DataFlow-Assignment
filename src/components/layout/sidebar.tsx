@@ -43,6 +43,10 @@ export default function Sidebar() {
     setOpenMobile(false);
   }, [pathname, setOpenMobile]);
 
+  const handleNavClick = () => {
+    setOpenMobile(false);
+  };
+
   const handleLogout = () => {
     router.push('/login');
   };
@@ -74,7 +78,7 @@ export default function Sidebar() {
                   pathname.startsWith(item.href) && 'shadow-[0_0_15px_hsl(var(--primary-glow))]'
                 )}
               >
-                <Link href={item.href}>
+                <Link href={item.href} onClick={handleNavClick}>
                   <item.icon className="h-5 w-5" />
                   <span className='whitespace-nowrap'>{item.label}</span>
                 </Link>
@@ -103,7 +107,7 @@ export default function Sidebar() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <Link href="/settings">
+                    <Link href="/settings" onClick={handleNavClick}>
                         <Settings className="mr-2 h-4 w-4" />
                         <span>Settings</span>
                     </Link>
