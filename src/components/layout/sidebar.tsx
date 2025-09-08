@@ -98,12 +98,12 @@ export default function Sidebar() {
                         <AvatarFallback>U</AvatarFallback>
                     </Avatar>
                     <div className={`flex flex-col overflow-hidden transition-all duration-300 ${sidebarState === 'collapsed' ? 'w-0' : 'w-full'}`}>
-                        <span className="font-semibold text-sm truncate">Alex Starr</span>
-                        <span className="text-xs text-muted-foreground truncate">alex.starr@example.com</span>
+                        <span className="font-semibold text-sm truncate">Shashi Bhushan Kumar</span>
+                        <span className="text-xs text-muted-foreground truncate">shashicoeb@gmail.com</span>
                     </div>
                 </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent side="right" align="start" className="w-56">
+            <DropdownMenuContent side="top" align="end" className="w-56 mb-2">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
