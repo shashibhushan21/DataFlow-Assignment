@@ -19,6 +19,7 @@ import {
   LogOut,
   Briefcase,
   Settings,
+  Target,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -26,8 +27,9 @@ import ThemeToggle from '../theme-toggle';
 import { cn } from '@/lib/utils';
 
 const navItems = [
+  { href: '/dashboard', icon: BarChart3, label: 'Dashboard' },
   { href: '/leads', icon: Users, label: 'Leads' },
-  { href: '/campaigns', icon: BarChart3, label: 'Campaigns' },
+  { href: '/campaigns', icon: Target, label: 'Campaigns' },
 ];
 
 export default function Sidebar() {
@@ -94,9 +96,11 @@ export default function Sidebar() {
             <DropdownMenuContent side="right" align="start" className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
+                <DropdownMenuItem asChild>
+                    <Link href="/settings">
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Settings</span>
+                    </Link>
                 </DropdownMenuItem>
                 <ThemeToggle />
                 <DropdownMenuSeparator />

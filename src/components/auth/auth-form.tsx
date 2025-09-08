@@ -59,7 +59,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
       );
       
       if (hasAuthCookie) {
-        window.location.replace('/leads');
+        window.location.replace('/dashboard');
       }
     };
     checkSession();
@@ -88,7 +88,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         });
         // Force redirect with page reload
         setTimeout(() => {
-          window.location.replace('/leads');
+          window.location.replace('/dashboard');
         }, 500);
       } else {
         await authClient.signUp.email({
@@ -102,7 +102,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         });
         // Force redirect with page reload
         setTimeout(() => {
-          window.location.replace('/leads');
+          window.location.replace('/dashboard');
         }, 500);
       }
     } catch (error: any) {
